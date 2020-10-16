@@ -2,8 +2,8 @@
 name: bug
 about: This is used for bug report.
 title: ''
-labels: ''
-assignees: ''
+labels: bug
+assignees: Asuha-a
 
 ---
 
