@@ -1,10 +1,19 @@
 # FUNCTIONAL_DESIGN.md
 ## 技術スタック
-### backend
+### Backend
+Gin(Go)  
+Gorm(Go)  
+PostgreSQL  
 
-### frontend
+### Frontend
+React(TypeScript) + Redux  
+HTML  
+SCSS  
 
-### infra
+### Infra
+Docker + Docker Compose(Dev) + Kubernetes(Prod)  
+AWS + Terraform  
+CircleCI  
 
 ## Prototype
 
