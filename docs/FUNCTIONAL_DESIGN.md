@@ -21,5 +21,6 @@ See [here](https://github.com/Asuha-a/URLShortener/tree/main/docs/DISIGN.md)
 ## API Design
 
 ## ER図
+![ER Diagram](ER_diagram.png)
 
 ## ネットワーク図
