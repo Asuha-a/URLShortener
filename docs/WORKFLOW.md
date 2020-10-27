@@ -1,4 +1,5 @@
 # WORKFLOW.md
+
 ## プレフィックス
 
 |  prefix  |  stands for  |  discription  |
@@ -11,21 +12,25 @@
 |  style  |  |  デザイン面の変更  |
 
 ## ブランチの命名規則
-```
+
+```terminal
 [prefix]/[issue_number]_[issue_title]
 ```
 
 example
-```
+
+```terminal
 feat/21_add_authentications
 ```
 
 ## コミットメッセージの命名規則
-```
+
+```terminal
 [prefix]: [a discription of changes] [#issue_number]
 ```
 
 example
-```
+
+```terminal
 fix: delete extra comments #15
 ```
