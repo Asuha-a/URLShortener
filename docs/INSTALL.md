@@ -23,3 +23,9 @@ pre-commitをhooksに追加する。
 ```terminal
 pre-commit install
 ```
+
+### Change the file permission
+
+```terminal
+chmod +x make_pb.sh
+```

@@ -1,11 +1,21 @@
 version: '3'
 
 services:
-  api:
+  gateway:
     build:
       context: ./api/
       dockerfile: Dockerfile
     ports:
-      - 3001:3001
+      - 8080:8080
+    tty:
+      true
+    depends_on:
+      - user
+  user:
+    build:
+      context: ./api/services/user
+      dockerfile: Dockerfile
+    ports:
+      - 50051:50051
     tty:
       true
