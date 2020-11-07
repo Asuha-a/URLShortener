@@ -1,7 +1,13 @@
-FROM golang:latest
+FROM golang:1.15.2-alpine AS builder
 
-RUN mkdir /go/src/work
-WORKDIR /go/src/work
-ADD . /go/src/work
+WORKDIR /go/src/github.com/Asuha-a/URLShortener/api/services/user
 
-CMD go run main.go
+COPY . .
+
+RUN go build -o /bin/user
+
+FROM alpine:latest
+
+COPY --from=builder /bin/user /bin/user
+
+ENTRYPOINT [ "/bin/user" ]
