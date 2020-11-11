@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	pb "github.com/Asuha-a/URLShortener/api/pb"
+	pb "github.com/Asuha-a/URLShortener/api/pb/user"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 )
