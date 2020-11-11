@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/Asuha-a/URLShortener/api/pb";
+option go_package = "github.com/Asuha-a/URLShortener/api/pb/user";
 
 package URLShortener;
 
