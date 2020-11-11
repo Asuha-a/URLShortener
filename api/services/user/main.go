@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/Asuha-a/URLShortener/api/services/user/pb"
+	pb "github.com/Asuha-a/URLShortener/api/pb/user"
 	"google.golang.org/grpc"
 )
 
