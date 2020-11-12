@@ -14,11 +14,6 @@ const (
 	address = "user:50051"
 )
 
-// Test gRPC
-func Test(c *gin.Context) {
-	log.Println(_Auth_serviceDesc)
-}
-
 // Login app
 func Login(c *gin.Context) {
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
