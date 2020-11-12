@@ -3,6 +3,7 @@ module github.com/Asuha-a/URLShortener/api/services/user
 go 1.15
 
 require (
+	github.com/Asuha-a/URLShortener/api v0.0.0-20201112091101-3a96ef4e52c9
 	github.com/golang/protobuf v1.4.3 // indirect
 	golang.org/x/net v0.0.0-20201029055024-942e2f445f3c // indirect
 	golang.org/x/sys v0.0.0-20201029020603-3518587229cd // indirect

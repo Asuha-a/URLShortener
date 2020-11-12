@@ -1,4 +1,7 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
+github.com/Asuha-a/URLShortener v0.0.0-20201111101531-3f86fc76b4b5 h1:+BCUdqFFM54DhJJf0CyqpENFKu6NQSVX4gAgA4JFgOg=
+github.com/Asuha-a/URLShortener/api v0.0.0-20201112091101-3a96ef4e52c9 h1:ZXMhu0ponA0DfnL/I0irBZgOfADRWTXVGDoCQHVxTos=
+github.com/Asuha-a/URLShortener/api v0.0.0-20201112091101-3a96ef4e52c9/go.mod h1:y1UiDKJFHwpSo7M1A9R7E9hgo0QM2eWP9wzPTlLPUsI=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
