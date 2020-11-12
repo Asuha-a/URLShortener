@@ -13,15 +13,20 @@ const (
 	port = ":50051"
 )
 
-// server is used to implement helloworld.GreeterServer.
 type server struct {
-	pb.UnimplementedGreeterServer
+	pb.UnimplementedAuthServer
 }
 
-// SayHello implements helloworld.GreeterServer
-func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-	log.Printf("Received: %v", in.GetName())
-	return &pb.HelloReply{Message: "Hello " + in.GetName()}, nil
+func (s *server) Login(ctx context.Context, in *pb.LoginRequest) (*pb.LoginReply, error) {
+	log.Printf("Received Email: %v", in.GetEmail())
+	log.Printf("Received Email: %v", in.GetPassword())
+	return &pb.LoginReply{Token: in.GetEmail() + in.GetPassword()}, nil
+}
+
+func (s *server) Signup(ctx context.Context, in *pb.SignupRequest) (*pb.SignupReply, error) {
+	log.Printf("Received Email: %v", in.GetEmail())
+	log.Printf("Received Email: %v", in.GetPassword())
+	return &pb.SignupReply{Token: in.GetEmail() + in.GetPassword()}, nil
 }
 
 func main() {
@@ -30,7 +35,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &server{})
+	pb.RegisterAuthServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

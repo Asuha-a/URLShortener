@@ -3,7 +3,6 @@ package controllers
 import (
 	"context"
 	"log"
-	"os"
 	"time"
 
 	pb "github.com/Asuha-a/URLShortener/api/pb/user"
@@ -12,29 +11,58 @@ import (
 )
 
 const (
-	address     = "user:50051"
-	defaultName = "world"
+	address = "user:50051"
 )
 
-// Hello user microservice
-func Hello(c *gin.Context) {
+// Test gRPC
+func Test(c *gin.Context) {
+	log.Println(_Auth_serviceDesc)
+}
+
+// Login app
+func Login(c *gin.Context) {
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	client := pb.NewGreeterClient(conn)
+	client := pb.NewAuthClient(conn)
+	log.Println("test logging")
+	email := c.Query("email")
+	password := c.Query("password")
 
-	// Contact the server and print out its response.
-	name := defaultName
-	if len(os.Args) > 1 {
-		name = os.Args[1]
-	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := client.SayHello(ctx, &pb.HelloRequest{Name: name})
+	r, err := client.Login(ctx, &pb.LoginRequest{
+		Email:    email,
+		Password: password,
+	})
 	if err != nil {
-		log.Fatalf("could not greet: %v", err)
+		log.Fatalf("could not login: %v", err)
 	}
-	log.Printf("Greeting: %s", r.GetMessage())
+	log.Printf("Token: %s", r.GetToken())
+}
+
+// Signup app
+func Signup(c *gin.Context) {
+	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+	client := pb.NewAuthClient(conn)
+
+	email := c.Query("email")
+	password := c.Query("password")
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := client.Signup(ctx, &pb.SignupRequest{
+		Email:    email,
+		Password: password,
+	})
+	if err != nil {
+		log.Fatalf("could not signup: %v", err)
+	}
+	log.Printf("Token: %s", r.GetToken())
 }
