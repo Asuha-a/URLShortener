@@ -19,3 +19,15 @@ services:
       - 50051:50051
     tty:
       true
+    depends_on: 
+      - user_db
+  user_db:
+    image: postgres:alpine
+    container_name: "user_db"
+    environment: 
+      POSTGRES_USER: gorm
+      POSTGRES_PASSWORD: gorm
+      POSTGRES_DB: gorm
+      POSTGRES_HOST: user_db
+    ports:
+      - 5432:5432
