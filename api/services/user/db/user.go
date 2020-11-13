@@ -7,7 +7,7 @@ import (
 // User Model
 type User struct {
 	UUID       uuid.UUID `gorm:"primaryKey; unique; type:uuid;"`
-	EMAIL      string
-	PERMISSION string
+	EMAIL      string    `gorm:"unique"`
+	PERMISSION string    `gorm:"->"`
 	PASSWORD   string
 }
