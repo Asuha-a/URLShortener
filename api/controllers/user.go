@@ -56,8 +56,11 @@ func Signup(c *gin.Context) {
 		Email:    email,
 		Password: password,
 	})
+
 	if err != nil {
-		log.Fatalf("could not signup: %v", err)
+		panic(err)
+		c.AbortWithStatus(400)
+	} else {
+		c.JSON(200, r.GetToken())
 	}
-	log.Printf("Token: %s", r.GetToken())
 }
