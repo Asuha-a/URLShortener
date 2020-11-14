@@ -14,11 +14,6 @@ const (
 	address = "user:50051"
 )
 
-// Test gRPC
-func Test(c *gin.Context) {
-	log.Println(_Auth_serviceDesc)
-}
-
 // Login app
 func Login(c *gin.Context) {
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
@@ -27,7 +22,7 @@ func Login(c *gin.Context) {
 	}
 	defer conn.Close()
 	client := pb.NewAuthClient(conn)
-	log.Println("test logging")
+
 	email := c.Query("email")
 	password := c.Query("password")
 
@@ -38,9 +33,11 @@ func Login(c *gin.Context) {
 		Password: password,
 	})
 	if err != nil {
-		log.Fatalf("could not login: %v", err)
+		panic(err)
+		c.AbortWithStatus(400)
+	} else {
+		c.JSON(200, r.GetToken())
 	}
-	log.Printf("Token: %s", r.GetToken())
 }
 
 // Signup app
@@ -61,8 +58,11 @@ func Signup(c *gin.Context) {
 		Email:    email,
 		Password: password,
 	})
+
 	if err != nil {
-		log.Fatalf("could not signup: %v", err)
+		panic(err)
+		c.AbortWithStatus(400)
+	} else {
+		c.JSON(200, r.GetToken())
 	}
-	log.Printf("Token: %s", r.GetToken())
 }
