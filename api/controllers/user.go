@@ -22,7 +22,7 @@ func Login(c *gin.Context) {
 	}
 	defer conn.Close()
 	client := pb.NewAuthClient(conn)
-	log.Println("test logging")
+
 	email := c.Query("email")
 	password := c.Query("password")
 
@@ -33,9 +33,11 @@ func Login(c *gin.Context) {
 		Password: password,
 	})
 	if err != nil {
-		log.Fatalf("could not login: %v", err)
+		panic(err)
+		c.AbortWithStatus(400)
+	} else {
+		c.JSON(200, r.GetToken())
 	}
-	log.Printf("Token: %s", r.GetToken())
 }
 
 // Signup app
