@@ -5,30 +5,30 @@ import (
 	"log"
 	"time"
 
-	pb "github.com/Asuha-a/URLShortener/api/pb/user"
+	pbUser "github.com/Asuha-a/URLShortener/api/pb/user"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 )
 
 const (
-	address = "user:50051"
+	userAddress = "user:50051"
 )
 
 // Login app
 func Login(c *gin.Context) {
-	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(userAddress, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	client := pb.NewAuthClient(conn)
+	client := pbUser.NewAuthClient(conn)
 
 	email := c.Query("email")
 	password := c.Query("password")
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := client.Login(ctx, &pb.LoginRequest{
+	r, err := client.Login(ctx, &pbUser.LoginRequest{
 		Email:    email,
 		Password: password,
 	})
@@ -42,19 +42,19 @@ func Login(c *gin.Context) {
 
 // Signup app
 func Signup(c *gin.Context) {
-	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(userAddress, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	client := pb.NewAuthClient(conn)
+	client := pbUser.NewAuthClient(conn)
 
 	email := c.Query("email")
 	password := c.Query("password")
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := client.Signup(ctx, &pb.SignupRequest{
+	r, err := client.Signup(ctx, &pbUser.SignupRequest{
 		Email:    email,
 		Password: password,
 	})
