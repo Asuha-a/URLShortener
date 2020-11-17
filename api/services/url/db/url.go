@@ -7,8 +7,8 @@ import (
 	"gorm.io/datatypes"
 )
 
-// User Model
-type User struct {
+// URL Model
+type URL struct {
 	UUID       uuid.UUID `gorm:"primaryKey; unique; type:uuid;"`
 	UserID     uuid.UUID
 	Title      string
