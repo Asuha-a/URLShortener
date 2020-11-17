@@ -31,3 +31,23 @@ services:
       POSTGRES_HOST: user_db
     ports:
       - 5432:5432
+  url:
+    build:
+      context: ./api/services/url
+      dockerfile: Dockerfile
+    ports:
+      - 50052:50052
+    tty:
+      true
+    depends_on: 
+      - url_db
+  url_db:
+    image: postgres:alpine
+    container_name: "url_db"
+    environment: 
+      POSTGRES_USER: gorm
+      POSTGRES_PASSWORD: gorm
+      POSTGRES_DB: gorm
+      POSTGRES_HOST: url_db
+    ports:
+      - 5433:5433
