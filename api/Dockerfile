@@ -6,7 +6,7 @@ COPY . .
 
 RUN go build -o /bin/gateway
 
-FROM alpine:latest
+FROM alpine:3.12.1
 
 COPY --from=builder /bin/gateway /bin/gateway
 

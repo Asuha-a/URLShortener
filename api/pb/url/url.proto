@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/Asuha-a/URLShortener/api/pb/url";
+
+package url;
+
+service URL {
+  rpc GetAllURL (GetAllURLRequest) returns (stream GetAllURLReply) {}
+  rpc GetURL (GetURLRequest) returns (GetURLReply) {}
+  rpc PostURL (PostURLRequest) returns (PostURLReply) {}
+  rpc PutURL (PutURLRequest) returns (PutURLReply) {}
+  rpc DeleteURL (DeleteURLRequest) returns (google.protobuf.Empty) {}
+}
+
+message node {
+    string condition = 1;
+    string matched_url = 2;
+    string not_matched_url = 3;
+    repeated node matched = 4;
+    repeated node not_matched = 5;
+
+}
+
+message GetAllURLRequest {
+    string token = 1;
+}
+
+message GetAllURLReply {
+    string uuid = 1;
+    string user_id = 2;
+    string title = 3;
+    string url = 4;
+    repeated node redirect_to = 5;
+    google.protobuf.Timestamp created_at = 6;
+}
+
+message GetURLRequest {
+    string token = 1;
+    string uuid = 2;
+}
+
+message GetURLReply {
+    string uuid = 1;
+    string user_id = 2;
+    string title = 3;
+    string url = 4;
+    repeated node redirect_to = 5;
+    google.protobuf.Timestamp created_at = 6;
+}
+
+message PostURLRequest {
+  string token = 1;
+  string title = 2;
+  repeated node redirect_to = 3;
+}
+
+message PostURLReply {
+    string uuid = 1;
+    string user_id = 2;
+    string title = 3;
+    string url = 4;
+    repeated node redirect_to = 5;
+    google.protobuf.Timestamp created_at = 6;
+}
+
+message PutURLRequest {
+    string token = 1;
+    string uuid = 2;
+    string title = 3;
+    string url = 4;
+    repeated node redirect_to = 5;
+}
+
+message PutURLReply {
+    string uuid = 1;
+    string user_id = 2;
+    string title = 3;
+    string url = 4;
+    repeated node redirect_to = 5;
+    google.protobuf.Timestamp created_at = 6;
+}
+
+message DeleteURLRequest {
+    string token = 1;
+    string uuid = 2;
+}
