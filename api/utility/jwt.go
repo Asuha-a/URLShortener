@@ -19,11 +19,11 @@ func ParseJWT(tokenString string) (uuid.UUID, string, error) {
 	if err != nil {
 		panic(err)
 	}
-	var uuid uuid.UUID
+	var uUID uuid.UUID
 	var permission string
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		uuid = uuid.FromString(fmt.Sprintf("%v", claims["uuid"]))
+		uUID = uuid.FromString(fmt.Sprintf("%v", claims["uuid"]))
 		permission = fmt.Sprintf("%v", claims["permission"])
 	}
-	return uuid, permission, nil
+	return uUID, permission, nil
 }
