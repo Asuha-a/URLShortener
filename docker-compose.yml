@@ -35,7 +35,6 @@ services:
     build:
       context: ./api/services/url
       dockerfile: Dockerfile
-    command: echo "test"
     ports:
       - 50052:50052
     tty:
