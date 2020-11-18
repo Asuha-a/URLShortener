@@ -96,7 +96,7 @@ func PostURL(c *gin.Context) {
 	type request struct {
 		token      string
 		title      string
-		redirectTo []*pbURL.Node
+		redirectTo *pbURL.Node
 	}
 	var s request
 	c.Bind(&s)

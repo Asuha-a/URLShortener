@@ -19,8 +19,8 @@ message node {
     string condition = 1;
     string matched_url = 2;
     string not_matched_url = 3;
-    repeated node matched = 4;
-    repeated node not_matched = 5;
+    node matched = 4;
+    node not_matched = 5;
 
 }
 
@@ -33,7 +33,7 @@ message GetAllURLReply {
     string user_id = 2;
     string title = 3;
     string url = 4;
-    repeated node redirect_to = 5;
+    node redirect_to = 5;
     google.protobuf.Timestamp created_at = 6;
 }
 
@@ -47,14 +47,14 @@ message GetURLReply {
     string user_id = 2;
     string title = 3;
     string url = 4;
-    repeated node redirect_to = 5;
+    node redirect_to = 5;
     google.protobuf.Timestamp created_at = 6;
 }
 
 message PostURLRequest {
   string token = 1;
   string title = 2;
-  repeated node redirect_to = 3;
+  node redirect_to = 3;
 }
 
 message PostURLReply {
@@ -62,7 +62,7 @@ message PostURLReply {
     string user_id = 2;
     string title = 3;
     string url = 4;
-    repeated node redirect_to = 5;
+    node redirect_to = 5;
     google.protobuf.Timestamp created_at = 6;
 }
 
@@ -71,7 +71,7 @@ message PutURLRequest {
     string uuid = 2;
     string title = 3;
     string url = 4;
-    repeated node redirect_to = 5;
+    node redirect_to = 5;
 }
 
 message PutURLReply {
@@ -79,7 +79,7 @@ message PutURLReply {
     string user_id = 2;
     string title = 3;
     string url = 4;
-    repeated node redirect_to = 5;
+    node redirect_to = 5;
     google.protobuf.Timestamp created_at = 6;
 }
 
