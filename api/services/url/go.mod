@@ -5,7 +5,8 @@ go 1.15
 // replace github.com/Asuha-a/URLShortener/api => /Users/asuha/go/src/github.com/Asuha-a/URLShortener/api
 
 require (
-	github.com/Asuha-a/URLShortener/api v0.0.0-20201117110110-bad983e4c2d7
+	github.com/Asuha-a/URLShortener/api v0.0.0-20201118004130-6c83af017e6a
+	github.com/golang/protobuf v1.4.3
 	github.com/jackc/pgx/v4 v4.9.2 // indirect
 	github.com/satori/go.uuid v1.2.0
 	golang.org/x/crypto v0.0.0-20201116153603-4be66e5b6582 // indirect
