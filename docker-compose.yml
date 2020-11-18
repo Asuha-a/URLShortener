@@ -35,6 +35,7 @@ services:
     build:
       context: ./api/services/url
       dockerfile: Dockerfile
+    command: echo "test"
     ports:
       - 50052:50052
     tty:
@@ -42,8 +43,11 @@ services:
     depends_on: 
       - url_db
   url_db:
-    image: postgres:alpine
+    build: 
+      context: ./api/services/url/db
+      dockerfile: Dockerfile
     container_name: "url_db"
+    command: postgres -c port=5433
     environment: 
       POSTGRES_USER: gorm
       POSTGRES_PASSWORD: gorm
