@@ -13,8 +13,8 @@ services:
       - user
   user:
     build:
-      context: ./api/services/user
-      dockerfile: Dockerfile
+      context: ./api/
+      dockerfile: services/user/Dockerfile
     ports:
       - 50051:50051
     tty:
