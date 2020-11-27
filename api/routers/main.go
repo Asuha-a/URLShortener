@@ -10,5 +10,6 @@ func Init() {
 	api := r.Group("/api")
 	v1 := api.Group("/v1")
 	userRouters(v1)
+	urlRouters(v1)
 	r.Run()
 }
