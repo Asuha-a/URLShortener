@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"net"
+	"time"
 
 	pb "github.com/Asuha-a/URLShortener/api/pb/user"
 	"github.com/Asuha-a/URLShortener/api/services/user/db"
@@ -22,19 +23,22 @@ type server struct {
 }
 
 type userClaims struct {
-	UUID       uuid.UUID
-	PERMISSION string
+	UUID       uuid.UUID `json:"UUID"`
+	PERMISSION string    `json:"PERMISSION"`
 	jwt.StandardClaims
 }
 
 func createJWT(user db.User) (string, error) {
 	mySingningKey := []byte("AllYourBase")
-
+	log.Println("permission:")
+	log.Println(user.PERMISSION)
+	log.Println("password")
+	log.Println(user.PASSWORD)
 	claims := userClaims{
 		user.UUID,
 		user.PERMISSION,
 		jwt.StandardClaims{
-			ExpiresAt: 15000,
+			ExpiresAt: time.Now().Add(time.Minute * 1).Unix(),
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -69,6 +73,8 @@ func (s *server) Signup(ctx context.Context, in *pb.SignupRequest) (*pb.SignupRe
 	}
 
 	user := db.User{UUID: uuid.NewV4(), EMAIL: string(in.GetEmail()), PASSWORD: string(hash), PERMISSION: "normal"}
+	log.Println("signup")
+	log.Println(user.PERMISSION)
 	result := db.DB.Create(&user)
 	if result.Error != nil {
 		panic(result.Error)
