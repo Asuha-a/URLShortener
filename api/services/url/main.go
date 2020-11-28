@@ -13,6 +13,7 @@ import (
 	"github.com/golang/protobuf/ptypes"
 	uuid "github.com/satori/go.uuid"
 	"google.golang.org/grpc"
+	"gorm.io/gorm"
 )
 
 const (
@@ -23,22 +24,47 @@ type server struct {
 	pb.UnimplementedURLServer
 }
 
-/*
-func (s *server) GetAllURL(rect pb.Rectangle, stream pb.URLGetAllURLServer) error {
+func (s *server) GetAllURL(in *pb.GetAllURLRequest, stream pb.URL_GetAllURLServer) error {
 	var urls []db.URL
-	uuid, permission, err := utility.ParseJWT(string(in.GetToken()))
-	if err != nil {
-		panic(err)
+	uuidUser, permission, err := utility.ParseJWT(string(in.GetToken()))
+	var result *gorm.DB
+	if permission == "admin" {
+		result = db.DB.Find(&urls)
+	} else {
+		result = db.DB.Where("uuid <> ?", uuidUser).Find(&urls)
 	}
-	result := db.DB.Where("uuid <> ?", in.GetUuid()).Find(&urls)
 	if result.Error != nil {
 		panic(result.Error)
 	}
-	return &pb.GetAllURLReply{
-		Token: ss,
-	}, nil
+	for _, url := range urls {
+		node := pb.Node{}
+		jsonData := []byte(url.RedirectTo)
+		err = json.Unmarshal(jsonData, &node)
+		if err != nil {
+			panic(err)
+		}
+		CreatedAt, err := ptypes.TimestampProto(url.CreatedAt)
+		if err != nil {
+			panic(err)
+		}
+		err = stream.Send(&pb.GetAllURLReply{
+			Uuid:       url.UUID.String(),
+			UserId:     url.UserID.String(),
+			Title:      url.Title,
+			Url:        url.URL,
+			RedirectTo: &node,
+			CreatedAt:  CreatedAt,
+		})
+		if err != nil {
+			return err
+		}
+	}
+
+	if err != nil {
+		panic(err)
+	}
+	return nil
 }
-*/
 
 func (s *server) PostURL(ctx context.Context, in *pb.PostURLRequest) (*pb.PostURLReply, error) {
 	uuidUser, _, err := utility.ParseJWT(string(in.GetToken()))
@@ -54,16 +80,17 @@ func (s *server) PostURL(ctx context.Context, in *pb.PostURLRequest) (*pb.PostUR
 	if result.Error != nil {
 		panic(result.Error)
 	}
-	CreatedAt, err := ptypes.TimestampProto(url.CreatedAt)
-	if err != nil {
-		panic(err)
-	}
 	node := pb.Node{}
 	jsonData := []byte(url.RedirectTo)
 	err = json.Unmarshal(jsonData, &node)
 	if err != nil {
 		panic(err)
 	}
+	CreatedAt, err := ptypes.TimestampProto(url.CreatedAt)
+	if err != nil {
+		panic(err)
+	}
+
 	return &pb.PostURLReply{
 		Uuid:       url.UUID.String(),
 		UserId:     url.UserID.String(),
